@@ -3,9 +3,9 @@ using NewsApp.Services;
 
 namespace NewsApp.Pages;
 
-public partial class NewsHomePage : ContentPage
+public partial class NewsListPage : ContentPage
 {
-	public List<Article> ArticleList;
+    public List<Article> ArticleList;
     public List<Category> CategoryList = new List<Category>()
     {
         new Category(){Name="World", ImageUrl = "world.png"},
@@ -17,29 +17,23 @@ public partial class NewsHomePage : ContentPage
         new Category(){Name = "Science", ImageUrl= "science.png"},
         new Category(){Name = "Health", ImageUrl="health.png"},
     };
-    public NewsHomePage()
+
+    public NewsListPage(Category category)
 	{
-		InitializeComponent();
+        InitializeComponent();
         GetBreakingNews();
         ArticleList = new List<Article>();
         CvCategories.ItemsSource = CategoryList;
-	}
-	private async Task GetBreakingNews()
-	{
-		var apiService = new ApiService();
-		var newsResult = await apiService.GetNews("Sports");
-		foreach (var item in newsResult.Articles)
-		{
-			ArticleList.Add(item);
-		}
-		CvNews.ItemsSource = ArticleList;
-	}
+    }
 
-    private async void categorySelected(object sender, SelectionChangedEventArgs e)
+    private async Task GetBreakingNews()
     {
-        var currentCategory = CvCategories.SelectedItem as Category;
-        if (currentCategory == null)
-            return;
-        Navigation.PushAsync(new NewsListPage(currentCategory));
+        var apiService = new ApiService();
+        var newsResult = await apiService.GetNews("Sports");
+        foreach (var item in newsResult.Articles)
+        {
+            ArticleList.Add(item);
+        }
+        CvNews.ItemsSource = ArticleList;
     }
 }
