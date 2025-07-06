@@ -35,7 +35,7 @@ public partial class NewsHomePage : ContentPage
 		CvNews.ItemsSource = ArticleList;
 	}
 
-    private async void categorySelected(object sender, SelectionChangedEventArgs e)
+    private async void OnCategorySelected(object sender, SelectionChangedEventArgs e)
     {
         var currentCategory = CvCategories.SelectedItem as Category;
         if (currentCategory == null)

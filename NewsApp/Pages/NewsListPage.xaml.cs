@@ -21,19 +21,29 @@ public partial class NewsListPage : ContentPage
     public NewsListPage(Category category)
 	{
         InitializeComponent();
-        GetBreakingNews();
         ArticleList = new List<Article>();
         CvCategories.ItemsSource = CategoryList;
+        Title = category.Name;
+        LblTitle.Text = category.Name;
+        GetBreakingNews();
     }
 
     private async Task GetBreakingNews()
     {
         var apiService = new ApiService();
-        var newsResult = await apiService.GetNews("Sports");
+        var newsResult = await apiService.GetNews(LblTitle.Text);
         foreach (var item in newsResult.Articles)
         {
             ArticleList.Add(item);
         }
         CvNews.ItemsSource = ArticleList;
+    }
+
+    private async void OnDetailSelected(object sender, SelectionChangedEventArgs e)
+    {
+        var currentArticle = CvNews.SelectedItem as Article;
+        //if (currentArticle == null)
+        //    return;
+        Navigation.PushAsync(new NewsDetailPage(currentArticle));
     }
 }

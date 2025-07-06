@@ -16,7 +16,7 @@
                         x:Name="CvCategories"
                         HeightRequest="100"
                         SelectionMode="Single"
-                        SelectionChanged="categorySelected">
+                        SelectionChanged="OnCategorySelected">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20"/>
             </CollectionView.ItemsLayout>
